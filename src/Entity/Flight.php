@@ -2,20 +2,39 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Class Flight.
+ *
+ * @ORM\Entity
  */
-class Flight
+class Flight implements EntityInterface
 {
+    /**
+     * The flight ID.
+     *
+     * @var int
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer", options={ "comment": "The flight ID" })
+     */
+    private $id;
+
     /**
      * The flight airline code.
      *
      * @var string
+     *
+     * @ORM\Column(type="string", length=2, options={ "comment": "The flight airline code" })
      */
     private $airline;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string", length=3, options={ "comment": "The flight number" })
      */
     private $number;
 
@@ -23,6 +42,8 @@ class Flight
      * The flight departure airport.
      *
      * @var string
+     *
+     * @ORM\Column(type="string", length=3, options={ "comment": "The flight departure airport" })
      */
     private $departureAirport;
 
@@ -30,6 +51,8 @@ class Flight
      * The flight departure time.
      *
      * @var string
+     *
+     * @ORM\Column(type="string", length=5, options={ "comment": "The flight departure time" })
      */
     private $departureTime;
 
@@ -37,6 +60,8 @@ class Flight
      * The flight arrival airport.
      *
      * @var string
+     *
+     * @ORM\Column(type="string", length=3, options={ "comment": "The flight arrival airport" })
      */
     private $arrivalAirport;
 
@@ -44,6 +69,8 @@ class Flight
      * The flight arrival time.
      *
      * @var string
+     *
+     * @ORM\Column(type="string", length=5, options={ "comment": "The flight arrival time" })
      */
     private $arrivalTime;
 
@@ -51,8 +78,34 @@ class Flight
      * The flight price.
      *
      * @var string
+     *
+     * @ORM\Column(type="string", length=20, options={ "comment": "The flight price" })
      */
     private $price;
+
+    /**
+     * Get the flight ID.
+     *
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the flight ID.
+     *
+     * @param int $id
+     *
+     * @return Flight
+     */
+    public function setId(int $id): Flight
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Get the flight airline code.

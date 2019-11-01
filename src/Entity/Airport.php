@@ -2,15 +2,32 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Class Airport.
+ *
+ * @ORM\Entity
  */
-class Airport
+class Airport implements EntityInterface
 {
+    /**
+     * The airport ID.
+     *
+     * @var int
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer", options={ "comment": "The airport ID" })
+     */
+    private $id;
+
     /**
      * The airport code.
      *
      * @var string
+     *
+     * @ORM\Column(type="string", length=3, options={ "comment": "The airport code" })
      */
     private $code;
 
@@ -18,6 +35,8 @@ class Airport
      * The airport city code.
      *
      * @var string
+     *
+     * @ORM\Column(type="string", length=3, options={ "comment": "The airport city code" })
      */
     private $cityCode;
 
@@ -25,6 +44,8 @@ class Airport
      * The airport name.
      *
      * @var string
+     *
+     * @ORM\Column(type="string", length=255, options={ "comment": "The airport name" })
      */
     private $name;
 
@@ -32,6 +53,8 @@ class Airport
      * The airport city.
      *
      * @var string
+     *
+     * @ORM\Column(type="string", length=100, options={ "comment": "The airport city" })
      */
     private $city;
 
@@ -39,6 +62,8 @@ class Airport
      * The airport country code.
      *
      * @var string
+     *
+     * @ORM\Column(type="string", length=2, options={ "comment": "The airport country code" })
      */
     private $countryCode;
 
@@ -46,6 +71,8 @@ class Airport
      * The airport region code.
      *
      * @var string
+     *
+     * @ORM\Column(type="string", length=2, options={ "comment": "The airport region code" })
      */
     private $regionCode;
 
@@ -53,6 +80,8 @@ class Airport
      * The airport latitude.
      *
      * @var float
+     *
+     * @ORM\Column(type="decimal", precision=10, scale=6, options={ "comment": "The airport latitude" })
      */
     private $latitude;
 
@@ -60,6 +89,8 @@ class Airport
      * The airport longitude.
      *
      * @var float
+     *
+     * @ORM\Column(type="decimal", precision=10, scale=6, options={ "comment": "The airport longitude" })
      */
     private $longitude;
 
@@ -67,8 +98,34 @@ class Airport
      * The airport timezone.
      *
      * @var string
+     *
+     * @ORM\Column(type="string", length=255, options={ "comment": "The airport time zone" })
      */
     private $timezone;
+
+    /**
+     * Get the airport ID.
+     *
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the airport ID.
+     *
+     * @param int $id
+     *
+     * @return Airport
+     */
+    public function setId(int $id): Airport
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * @return string
