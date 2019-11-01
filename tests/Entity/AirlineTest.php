@@ -20,7 +20,7 @@ class AirlineTest extends TestCase
     /**
      * Test of an Airline instance.
      */
-    public function testInstance()
+    public function testInstance(): void
     {
         $expectId = 1;
         $expectCode = 'AB';
@@ -39,7 +39,7 @@ class AirlineTest extends TestCase
     /**
      * @inheritDoc
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -49,7 +49,7 @@ class AirlineTest extends TestCase
     /**
      * @inheritDoc
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->airline = null;
 

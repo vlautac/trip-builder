@@ -20,7 +20,7 @@ class TripTest extends TestCase
      */
     private $trip;
 
-    public function testInstance()
+    public function testInstance(): void
     {
         $expectId = 1;
 
@@ -79,7 +79,7 @@ class TripTest extends TestCase
     /**
      * @inheritDoc
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -89,7 +89,7 @@ class TripTest extends TestCase
     /**
      * @inheritDoc
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->trip = null;
 

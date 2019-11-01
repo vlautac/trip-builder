@@ -20,7 +20,7 @@ class AirportTest extends TestCase
     /**
      * Test of an Airport instance.
      */
-    public function testInstance()
+    public function testInstance(): void
     {
         $expectId = 1;
         $expectCode = 'AB';
@@ -57,7 +57,7 @@ class AirportTest extends TestCase
     /**
      * @inheritDoc
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -67,7 +67,7 @@ class AirportTest extends TestCase
     /**
      * @inheritDoc
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->airport = null;
 
