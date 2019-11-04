@@ -31,7 +31,12 @@ class PreKernelRequestSubscriberTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
-            ['kernel.request' => ['handlePreRequest', 1]],
+            [
+                'kernel.request' => [
+                    ['handlePreRequest', 2],
+                    ['handleBodySerialization', 1],
+                ]
+            ],
             PreKernelRequestSubscriber::getSubscribedEvents()
         );
     }
@@ -120,6 +125,39 @@ class PreKernelRequestSubscriberTest extends TestCase
             ->willReturn($requestMock);
 
         $this->subscriber->handlePreRequest($eventMock);
+    }
+
+    /**
+     * Test handleBodySerialization().
+     */
+    public function testHandleBodySerialization()
+    {
+        $data = ['foo' => 'bar'];
+        $serialized = json_encode($data);
+
+        $headerBagMock = $this->createMock(HeaderBag::class);
+        $headerBagMock
+            ->expects($this->once())
+            ->method('get')
+            ->with('Content-Type')
+            ->willReturn('application/json');
+
+        $requestMock = $this->createMock(Request::class);
+        $requestMock->headers = $headerBagMock;
+        $requestMock
+            ->expects($this->once())
+            ->method('getContent')
+            ->willReturn($serialized);
+
+        $eventMock = $this->createMock(RequestEvent::class);
+        $eventMock
+            ->expects($this->once())
+            ->method('getRequest')
+            ->willReturn($requestMock);
+
+         $this->subscriber->handleBodySerialization($eventMock);
+
+         $this->assertEquals($data, $requestMock->request->all());
     }
 
     /**

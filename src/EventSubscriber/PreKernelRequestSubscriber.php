@@ -3,9 +3,11 @@
 namespace App\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class PreKernelRequestSubscriber.
@@ -35,7 +37,10 @@ class PreKernelRequestSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::REQUEST => ['handlePreRequest', 1],
+            KernelEvents::REQUEST => [
+                ['handlePreRequest', 2],
+                ['handleBodySerialization', 1]
+            ]
         ];
     }
 
@@ -46,7 +51,7 @@ class PreKernelRequestSubscriber implements EventSubscriberInterface
      *
      * @param RequestEvent $event
      */
-    public function handlePreRequest(RequestEvent $event)
+    public function handlePreRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
 
@@ -61,5 +66,23 @@ class PreKernelRequestSubscriber implements EventSubscriberInterface
         {
             throw new AccessDeniedException('Access denied.');
         }
+    }
+
+    /**
+     * Handle the deserialization on the request JSON content.
+     *
+     * @param RequestEvent $event
+     */
+    public function handleBodySerialization(RequestEvent $event): void
+    {
+        $request = $event->getRequest();
+
+        if ('application/json' !== $request->headers->get('Content-Type'))
+        {
+            return;
+        }
+
+        $content = $request->getContent();
+        $request->request = new ParameterBag(json_decode($content, true));
     }
 }
