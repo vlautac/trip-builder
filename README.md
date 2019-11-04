@@ -24,21 +24,21 @@ You can optionnally use the Homestead/Vagrant virtual development environment th
 
 ### 5 - Unit Tests
 The unit tests are located under the `/tests`directory. You can execute the unit tests using the command
-`php vendor/bin/phpunit`
+`php bin/phpunit`
 
 ## API Endpoints
 ### 1 - Airline endpoints
 | Route | Method | Description |
 | ------| ------ | ----------- |
-| /api/airlines | GET | Get all the airlines |
+| `/api/airlines` | GET | Get all the airlines |
 
 ### 2 - Airport endpoints
 | Route | Method | Description |
 | ------| ------ | ----------- |
-| /api/airports | GET | Get all the airports |
+| `/api/airports` | GET | Get all the airports |
 
 ### 3 - Flight endpoints
 | Route | Method | Description |
 | ------| ------ | ----------- |
-| /api/flights | GET | Get all the flights |
+| `/api/flights` | GET | Get all the flights |
 
