@@ -26,6 +26,9 @@ You can optionnally use the Homestead/Vagrant virtual development environment th
 The unit tests are located under the `/tests`directory. You can execute the unit tests using the command
 `php bin/phpunit`
 
+### 6 - Security
+To access to the API endpoints, you must add the token value in the HTTP request header. This token will be provided by myself.
+
 ## API Endpoints
 ### 1 - Airline endpoints
 | Route | Method | Description |

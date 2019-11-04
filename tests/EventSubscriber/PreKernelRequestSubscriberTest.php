@@ -43,7 +43,13 @@ class PreKernelRequestSubscriberTest extends TestCase
     {
         $headerBagMock = $this->createMock(HeaderBag::class);
         $headerBagMock
-            ->expects($this->once())
+            ->expects($this->at(0))
+            ->method('get')
+            ->with('Content-Type')
+            ->willReturn('application/json');
+
+        $headerBagMock
+            ->expects($this->at(1))
             ->method('get')
             ->with('token')
             ->willReturn($this->token);
@@ -69,10 +75,40 @@ class PreKernelRequestSubscriberTest extends TestCase
 
         $headerBagMock = $this->createMock(HeaderBag::class);
         $headerBagMock
-            ->expects($this->once())
+            ->expects($this->at(0))
+            ->method('get')
+            ->with('Content-Type')
+            ->willReturn('application/json');
+
+        $headerBagMock
+            ->expects($this->at(1))
             ->method('get')
             ->with('token')
             ->willReturn('foobar');
+
+        $requestMock = $this->createMock(Request::class);
+        $requestMock->headers = $headerBagMock;
+
+        $eventMock = $this->createMock(RequestEvent::class);
+        $eventMock
+            ->expects($this->once())
+            ->method('getRequest')
+            ->willReturn($requestMock);
+
+        $this->subscriber->handlePreRequest($eventMock);
+    }
+
+    /**
+     * Test handlePreRequest() should not handle not JSON type.
+     */
+    public function testHandlePreRequestNoJson()
+    {
+        $headerBagMock = $this->createMock(HeaderBag::class);
+        $headerBagMock
+            ->expects($this->once())
+            ->method('get')
+            ->with('Content-Type')
+            ->willReturn('text/html');
 
         $requestMock = $this->createMock(Request::class);
         $requestMock->headers = $headerBagMock;

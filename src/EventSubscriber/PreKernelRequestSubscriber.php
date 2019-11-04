@@ -49,6 +49,12 @@ class PreKernelRequestSubscriber implements EventSubscriberInterface
     public function handlePreRequest(RequestEvent $event)
     {
         $request = $event->getRequest();
+
+        if ('application/json' !== $request->headers->get('Content-Type'))
+        {
+            return;
+        }
+
         $requestToken = $request->headers->get('token');
 
         if (empty($requestToken) || $requestToken !== $this->token)
