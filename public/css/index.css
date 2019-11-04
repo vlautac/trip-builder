@@ -4,7 +4,7 @@
 }
 
 body {
-    font-family: Verdana
+    font-family: Verdana, sans-serif;
 }
 
 .main {
@@ -37,4 +37,8 @@ footer p {
     padding: 15px;
     text-align: center;
     font-size: 13px;
+}
+
+.flighthub-link {
+    text-decoration: none !important;
 }

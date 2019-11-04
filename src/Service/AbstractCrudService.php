@@ -3,7 +3,7 @@
 namespace App\Service;
 
 use App\Entity\EntityInterface;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -21,9 +21,9 @@ abstract class AbstractCrudService implements CrudInterface
     /**
      * AbstractCrudService constructor.
      *
-     * @param EntityManager $em
+     * @param EntityManagerInterface $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
@@ -39,7 +39,7 @@ abstract class AbstractCrudService implements CrudInterface
     /**
      * @inheritDoc
      */
-    public function getList(array $criterias, array $orderBy = null, ?int $limit = null, ?int $offset = null): array
+    public function getList(array $criterias = [], array $orderBy = null, ?int $limit = null, ?int $offset = null): array
     {
         return $this->em->getRepository($this->getClassName())->findBy($criterias, $orderBy, $limit, $offset);
     }

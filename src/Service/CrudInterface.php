@@ -29,7 +29,7 @@ interface CrudInterface
      *
      * @return array
      */
-    public function getList(array $criterias, array $orderBy = null, ?int $limit = null, ?int $offset = null): array;
+    public function getList(array $criterias = [], array $orderBy = null, ?int $limit = null, ?int $offset = null): array;
 
     /**
      * Create an entity.

@@ -4,7 +4,7 @@ namespace App\Tests\Service;
 
 use App\Entity\EntityInterface;
 use App\Service\AbstractCrudService;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -24,7 +24,7 @@ class AbstractCrudServiceTest extends TestCase
     /**
      * The entity manager mock.
      *
-     * @var EntityManager|MockObject
+     * @var EntityManagerInterface|MockObject
      */
     private $em;
 
@@ -168,7 +168,7 @@ class AbstractCrudServiceTest extends TestCase
         parent::setUp();
 
         $this->className = 'App\\MyEntityClass';
-        $this->em = $this->createMock(EntityManager::class);
+        $this->em = $this->createMock(EntityManagerInterface::class);
         $this->service = $this->getMockForAbstractClass(AbstractCrudService::class, [$this->em]);
     }
 

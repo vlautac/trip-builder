@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "airline": "AC",
+    "number": "301",
+    "departureAirport": "YUL",
+    "departureTime": "07:35",
+    "arrivalAirport": "YVR",
+    "arrivalTime": "10:05",
+    "price": "273.23"
+  },
+  {
+    "id": 2,
+    "airline": "AC",
+    "number": "302",
+    "departureAirport": "YVR",
+    "departureTime": "11:30",
+    "arrivalAirport": "YUL",
+    "arrivalTime": "19:11",
+    "price": "220.63"
+  }
+]

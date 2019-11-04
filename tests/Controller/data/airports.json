@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "code": "YUL",
+    "cityCode": "YMQ",
+    "name": "Pierre Elliott Trudeau International",
+    "city": "Montreal",
+    "countryCode": "CA",
+    "regionCode": "QC",
+    "latitude": 45.457714,
+    "longitude": -73.749908,
+    "timezone": "America\/Montreal"
+  },
+  {
+    "id": 2,
+    "code": "YVR",
+    "cityCode": "YVR",
+    "name": "Vancouver International",
+    "city": "Vancouver",
+    "countryCode": "CA",
+    "regionCode": "BC",
+    "latitude": 49.194698,
+    "longitude": -123.179192,
+    "timezone": "America\/Vancouver"
+  }
+]
