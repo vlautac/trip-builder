@@ -12,7 +12,7 @@ class FlightService extends AbstractCrudService
     /**
      * @inheritDoc
      */
-    function getClassName(): string
+    public function getClassName(): string
     {
         return Flight::class;
     }

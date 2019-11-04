@@ -76,5 +76,5 @@ abstract class AbstractCrudService implements CrudInterface
      *
      * @return string
      */
-    abstract function getClassName(): string;
+    abstract public function getClassName(): string;
 }

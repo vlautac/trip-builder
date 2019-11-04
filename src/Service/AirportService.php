@@ -12,7 +12,7 @@ class AirportService extends AbstractCrudService
     /**
      * @inheritDoc
      */
-    function getClassName(): string
+    public function getClassName(): string
     {
         return Airport::class;
     }
