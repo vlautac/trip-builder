@@ -77,7 +77,7 @@ class PreKernelRequestSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        if ('application/json' !== $request->headers->get('Content-Type'))
+        if ('application/json' !== $request->headers->get('Content-Type') || $request->isMethod('GET'))
         {
             return;
         }
