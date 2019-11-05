@@ -30,7 +30,19 @@ The unit tests are located under the `/tests`directory. You can execute the unit
 To access to the API endpoints, you must add the token value in the HTTP request header. This token will be provided by myself.
 
 ## API Endpoints
-### 1 - Airline endpoints
+### 1 - Pagination, sort and filters
+You can performs filtering using criteria on the HTTP query parameters `?sort=code&direction=ASC&offset=1&limit=5`
+
+| Name | Type | Value |
+| ---- | ---- | ----- |
+| sort | string | Any |
+| direction | string | ASC or DESC |
+| offset | int | 0 (default) |
+| limit | int | 50 (default) |
+
+To performs filtering on a field of any entity, you can directly query it using parameter `?code=YUL`
+
+### 2 - Airline endpoints
 | Route | Method | Description |
 | ------| ------ | ----------- |
 | `/api/airlines` | GET | Get all the airlines |
