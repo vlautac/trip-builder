@@ -2,11 +2,15 @@
 
 namespace App\Tests\Controller;
 
+use App\Builder\CriteriaBuilder;
 use App\Controller\AirportController;
+use App\DTO\Criteria;
 use App\Entity\Airport;
 use App\Service\AirportService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -36,6 +40,13 @@ class AirportsControllerTest extends TestCase
     private $serializer;
 
     /**
+     * The criteria builder mock.
+     *
+     * @var CriteriaBuilder|MockObject
+     */
+    private $builder;
+
+    /**
      * Test getAirports().
      */
     public function testGetAirports(): void
@@ -47,9 +58,50 @@ class AirportsControllerTest extends TestCase
             $this->createMock(Airport::class),
         ];
 
+        $expectedQuery = [];
+        $parameterBagMock = $this->createMock(ParameterBag::class);
+        $parameterBagMock
+            ->expects($this->once())
+            ->method('all')
+            ->willReturn($expectedQuery);
+
+        $request = $this->createMock(Request::class);
+        $request->query = $parameterBagMock;
+
+        $expectFilters = [];
+        $expectOrderBy = [];
+        $expectLimit = 50;
+        $expectOffset = 0;
+        $criteriaMock = $this->createMock(Criteria::class);
+        $criteriaMock
+            ->expects($this->once())
+            ->method('getFilters')
+            ->willReturn($expectFilters);
+
+        $criteriaMock
+            ->expects($this->once())
+            ->method('getOrderBy')
+            ->willReturn($expectOrderBy);
+
+        $criteriaMock
+            ->expects($this->once())
+            ->method('getOffset')
+            ->willReturn($expectOffset);
+
+        $criteriaMock
+            ->expects($this->once())
+            ->method('getLimit')
+            ->willReturn($expectLimit);
+
+        $this->builder
+            ->expects($this->once())
+            ->method('build')
+            ->willReturn($criteriaMock);
+
         $this->service
             ->expects($this->once())
             ->method('getList')
+            ->with($expectFilters, $expectOrderBy, $expectLimit, $expectOffset)
             ->willReturn($airportsMock);
 
         $this->serializer
@@ -58,7 +110,7 @@ class AirportsControllerTest extends TestCase
             ->with($airportsMock)
             ->willReturn($serialized);
 
-         $this->controller->getAirports($this->service, $this->serializer);
+         $this->controller->getAirports($request, $this->service, $this->serializer, $this->builder);
     }
 
     /**
@@ -70,6 +122,7 @@ class AirportsControllerTest extends TestCase
 
         $this->service = $this->createMock(AirportService::class);
         $this->serializer = $this->createMock(SerializerInterface::class);
+        $this->builder = $this->createMock(CriteriaBuilder::class);
 
         $this->controller = new AirportController();
     }
@@ -81,6 +134,7 @@ class AirportsControllerTest extends TestCase
     {
         $this->service = null;
         $this->serializer = null;
+        $this->builder = null;
         $this->controller = null;
 
         parent::tearDown();
